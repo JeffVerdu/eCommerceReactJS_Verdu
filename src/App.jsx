@@ -1,13 +1,17 @@
-import { useState } from "react";
-import "./App.css";
-import Navbar from "./components/Navbar";
-import ItemListContainer from "./components/ItemListContainer";
+import { BrowserRouter } from "react-router-dom";
+
+import "./App.scss";
+
+import Header from "./components/header/Header";
+import Main from "./components/Main";
 
 function App() {
   return (
     <>
-      <Navbar />
-      <ItemListContainer greeting="Bienvenidos" />
+      <BrowserRouter>
+        <Header />
+        <Main />
+      </BrowserRouter>
     </>
   );
 }
