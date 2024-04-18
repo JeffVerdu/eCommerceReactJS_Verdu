@@ -5,7 +5,6 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Button,
 } from "@nextui-org/react";
 import Cartwidget from "../ui/Cartwidget";
 
@@ -21,17 +20,17 @@ function NavbarApp() {
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link to="/movie" className="text-white" href="#">
+          <Link to="/category/35" className="text-white" href="#">
             Comedia
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link className="text-white" href="#">
+          <Link to="/category/28" className="text-white" href="#">
             Acción
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link className="text-white" href="#">
+          <Link to="/category/18" className="text-white" href="#">
             Drama
           </Link>
         </NavbarItem>

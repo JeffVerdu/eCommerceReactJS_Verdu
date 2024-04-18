@@ -1,14 +1,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import API from "../config/Api";
-import MoviesList from "./MoviesList";
+import MoviesList from "./ui/MoviesList";
 
 export default function ItemListContainer() {
-  const [topRated, setTopRated] = useState([]);
   const [nowPlaying, setNowPlaying] = useState([]);
-  const [popular, setPopular] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const params = useParams({});
 
   useEffect(() => {
     const options = {
@@ -27,32 +27,23 @@ export default function ItemListContainer() {
       })
       .catch((error) => console.log(error));
 
-    fetch(`${API.URL}/popular`, options)
-      .then((response) => response.json())
-      .then((data) => setPopular(data.results))
-      .catch((error) => console.log(error));
-
-    fetch(`${API.URL}/top_rated`, options)
-      .then((response) => response.json())
-      .then((data) => setTopRated(data.results))
-      .catch((error) => console.log(error));
-  }, []);
+    if (params.category != undefined) {
+      const filteredMovies = nowPlaying.filter((movie) =>
+        movie.genre_ids.includes(parseInt(params.category))
+      );
+      setFilteredMovies(filteredMovies);
+      console.log(filteredMovies);
+    }
+  }, [params.category]);
 
   return (
-    <div className="h-auto bg-black pb-10">
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <h2 className="text-white font-bold text-lg ms-44 mb-1">
-                Ahora en cines
-              </h2>
-              <MoviesList movies={nowPlaying} />
-            </>
-          }
+    <div className="h-auto bg-black pb-10 pt-10">
+      <>
+        <h2 className="text-white font-bold text-lg ms-44 mb-1">Películas</h2>
+        <MoviesList
+          movies={params.category != undefined ? filteredMovies : nowPlaying}
         />
-      </Routes>
+      </>
     </div>
   );
 }

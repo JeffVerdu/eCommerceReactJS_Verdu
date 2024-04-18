@@ -16,7 +16,7 @@ function MovieCard({ movie }) {
         src={API.IMAGE + movie.poster_path}
       />
       <CardFooter className="block border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small ml-1 z-10">
-        <Link to={`/${movie.id}`}>
+        <Link to={`/details/${movie.id}`}>
           <p className="text-tiny text-white text-center block w-full">
             {movie.title}
           </p>

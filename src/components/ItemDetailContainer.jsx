@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 
 import API from "../config/Api.jsx";
-import MovieDetails from "./MovieDetails.jsx";
+import MovieDetails from "./ui/MovieDetails.jsx";
 
 function ItemDetailContainer({ idMovie }) {
   const [movieDetails, setMovieDetails] = useState({});
