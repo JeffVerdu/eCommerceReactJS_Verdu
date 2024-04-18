@@ -5,10 +5,9 @@ import { useParams } from "react-router-dom";
 import API from "../config/Api";
 import MoviesList from "./ui/MoviesList";
 
-export default function ItemListContainer() {
+export default function ItemListContainer({ params }) {
   const [nowPlaying, setNowPlaying] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
-  const params = useParams({});
 
   useEffect(() => {
     const options = {
@@ -23,18 +22,18 @@ export default function ItemListContainer() {
     fetch(`${API.URL}/now_playing`, options)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data.results);
         setNowPlaying(data.results);
+        if (params.category != undefined) {
+          const filteredMovies = data.results.filter((movie) =>
+            movie.genre_ids.includes(parseInt(params.category))
+          );
+          setFilteredMovies(filteredMovies);
+          console.log(filteredMovies);
+        }
       })
       .catch((error) => console.log(error));
-
-    if (params.category != undefined) {
-      const filteredMovies = nowPlaying.filter((movie) =>
-        movie.genre_ids.includes(parseInt(params.category))
-      );
-      setFilteredMovies(filteredMovies);
-      console.log(filteredMovies);
-    }
-  }, [params.category]);
+  }, [params]);
 
   return (
     <div className="h-auto bg-black pb-10 pt-10">
