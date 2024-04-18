@@ -17,7 +17,7 @@ function ItemDetailContainer({ idMovie }) {
       },
     };
 
-    fetch(`${API.URL}/${idMovie}?language=en-US`, options)
+    fetch(`${API.URL}/${idMovie}?language=es-ES`, options)
       .then((response) => response.json())
       .then((data) => {
         setMovieDetails(data);

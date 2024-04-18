@@ -1,5 +1,7 @@
-
 .details {
+  position: relative;
+
+  .details-container {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -8,7 +10,7 @@
     display: block;
     margin-top: -4rem;
     position: relative;
-  
+
     &::before {
       content: "";
       position: absolute;
@@ -24,3 +26,10 @@
       );
     }
   }
+
+  .details-grid {
+    position: absolute;
+    top: 20%;
+    left: 12%;
+  }
+}
