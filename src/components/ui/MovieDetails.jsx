@@ -2,8 +2,6 @@ import API from "../../config/Api";
 import React from "react";
 
 function MovieDetails({ movie }) {
-  console.log(movie.id);
-
   return (
     <>
       <section className="details">
@@ -17,7 +15,7 @@ function MovieDetails({ movie }) {
           <img
             src={`${API.IMAGE}${movie.poster_path}`}
             alt={`${movie.title}`}
-            className="rounded-3xl shadow"
+            className="rounded-3xl shadow inline-block w-auto h-[28rem] object-contain my-0 mx-auto"
           />
           <div className="movie-inf text-white">
             <h2 className="text-3xl font-black">{movie.title}</h2>

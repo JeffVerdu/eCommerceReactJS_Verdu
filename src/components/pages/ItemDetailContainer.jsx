@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
-import API from "../config/Api.jsx";
-import MovieDetails from "./ui/MovieDetails.jsx";
+import API from "../../config/Api.jsx";
+import MovieDetails from "../ui/MovieDetails.jsx";
 
-function ItemDetailContainer({ idMovie }) {
+function ItemDetailContainer() {
+  const params = useParams();
+  const idMovie = params.id;
   const [movieDetails, setMovieDetails] = useState({});
 
   useEffect(() => {
