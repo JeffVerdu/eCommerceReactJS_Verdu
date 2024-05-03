@@ -1,7 +1,7 @@
 import React from "react";
 import MovieCard from "./MovieCard";
 
-function MoviesList({ movies }) {
+function ItemList({ movies }) {
   return (
     <section className="flex gap-2 py-5 container-box h-400px overflow-x-scroll movie-list">
       {movies.map((movie) => (
@@ -11,4 +11,4 @@ function MoviesList({ movies }) {
   );
 }
 
-export default MoviesList;
+export default ItemList;

@@ -18,7 +18,7 @@ function NavbarApp() {
           </h1>
         </Link>
       </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent className="hidden sm:flex gap-1" justify="center">
         <NavbarItem>
           <NavLink
             to="/category/35"

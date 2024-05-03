@@ -5,9 +5,7 @@ export default function HeroHome() {
     <div className="hero-container">
       <div className="hero-content"></div>
       <div className="hero-heading ms-20">
-        <h2 className="text-white">
-          El sitio donde se reúnen los amantes del cine
-        </h2>
+        <h2 className="text-white">El sitio para los amantes del cine</h2>
       </div>
     </div>
   );

@@ -5,6 +5,13 @@ $principal-gradient: linear-gradient(
   #570a57 49%,
   #f806cc 100%
 );
+
+$button-gradient: radial-gradient(
+  circle,
+  rgba(169, 16, 121, 1) 0%,
+  rgba(46, 2, 73, 1) 100%
+);
+
 $primary: #2e0249;
 $secondary: #f806cc;
 $light-primary: #570a57;

@@ -1,9 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getMovies } from "../../utils/dbqueries";
+import { getMovies, getMoviesByGenre } from "../../utils/services";
 
-import MoviesList from "../ui/MoviesList";
+import ItemList from "../ui/ItemList";
 
 export default function ItemListContainer() {
   const params = useParams();
@@ -14,10 +14,7 @@ export default function ItemListContainer() {
     getMovies().then((movies) => {
       setNowPlaying(movies);
       if (params.category != undefined) {
-        const filteredMovies = movies.filter((movie) =>
-          movie.genres_ids.includes(parseInt(params.category))
-        );
-        setFilteredMovies(filteredMovies);
+        setFilteredMovies(getMoviesByGenre(movies, params.category));
       }
     });
   }, [params]);
@@ -26,7 +23,7 @@ export default function ItemListContainer() {
     <div className="h-auto bg-black pb-10 pt-10">
       <>
         <h2 className="text-white font-bold text-lg ms-44 mb-1">Películas</h2>
-        <MoviesList
+        <ItemList
           movies={params.category != undefined ? filteredMovies : nowPlaying}
         />
       </>

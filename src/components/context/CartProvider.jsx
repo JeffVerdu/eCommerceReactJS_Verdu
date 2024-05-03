@@ -1,25 +1,27 @@
 import React, { createContext, useState } from "react";
 
-const context = createContext();
+export const context = createContext();
 const Provider = context.Provider;
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const [quantityCart, setQuantityCart] = useState([]);
-  const [totalCart, setTotalCart] = useState([]);
+  const [quantityCart, setQuantityCart] = useState(0);
+  const [totalCart, setTotalCart] = useState(0);
 
   const addToCart = (product) => {
-    if (!isInCart(product.id)) {
-      setCart([...cart, product]);
-    } else {
-      const newCart = cart.map((item) => {
-        if (item.id === product.id) {
-          return { ...item, quantity: item.quantity + 1 };
-        }
-        return item;
-      });
-      setCart(newCart);
-    }
+    let cartCopy = [...cart];
+    cartCopy.push(product);
+    setCart(cartCopy);
+    setQuantityCart(quantityCart + 1);
+    // else {
+    //   const newCart = cart.map((item) => {
+    //     if (item.id === product.id) {
+    //       return { ...item, quantity: item.quantity + 1 };
+    //     }
+    //     return item;
+    //   });
+    //   setCart(newCart);
+    // }
   };
   const removeFromCart = (id) => {
     const newCart = cart.filter((item) => item.id !== id);
@@ -38,7 +40,7 @@ const CartProvider = ({ children }) => {
     setCart([]);
   };
   const isInCart = (id) => {
-    return cart.some((item) => item.id === id);
+    return cart.some((item) => item.movie_id === id);
   };
 
   const currentValue = {

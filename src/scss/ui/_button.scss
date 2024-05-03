@@ -1,0 +1,11 @@
+@use "../base/variables" as v;
+
+.button {
+  color: #fff;
+  transition: all ease-in-out 0.3s;
+  background: v.$button-gradient !important;
+  background-size: cover;
+  background-position: center;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+}
