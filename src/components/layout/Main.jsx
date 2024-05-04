@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import ItemListContainer from "../pages/ItemListContainer";
 import ItemDetailContainer from "../pages/ItemDetailContainer";
+import { Checkout } from "../pages/Checkout";
 
 function Main() {
   return (
@@ -11,6 +12,7 @@ function Main() {
         <Route path="/" element={<ItemListContainer />} />
         <Route path="/category/:category" element={<ItemListContainer />} />
         <Route path="/details/:id" element={<ItemDetailContainer />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/*" element={<ItemListContainer />} />
       </Routes>
     </main>

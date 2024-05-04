@@ -1,7 +1,5 @@
 @use "../base/variables" as v;
 
 .movie-list {
-  scrollbar-color: rgb(87 10 87 / 0.3) #000;
-  box-shadow: inset 5px 0 5px -5px rgb(0 0 0 / 0.5),
-    inset -5px 0 5px -5px rgb(0 0 0 / 0.5);
+  scrollbar-color: rgb(255 255 255 / 0.3) transparent;
 }

@@ -20,7 +20,13 @@ export default function ItemListContainer() {
   }, [params]);
 
   return (
-    <div className="h-auto bg-black pb-10 pt-10">
+    <div
+      className={`${
+        params.category != undefined
+          ? "page-background min-h-dvh mt-[-4rem] pt-[6rem]"
+          : "bg-black h-auto pb-10"
+      }`}
+    >
       <>
         <h2 className="text-white font-bold text-lg ms-44 mb-1">Películas</h2>
         <ItemList

@@ -8,11 +8,15 @@ const CartProvider = ({ children }) => {
   const [quantityCart, setQuantityCart] = useState(0);
   const [totalCart, setTotalCart] = useState(0);
 
-  const addToCart = (product) => {
+  const addToCart = (movie) => {
     let cartCopy = [...cart];
-    cartCopy.push(product);
+    cartCopy.push(movie);
     setCart(cartCopy);
     setQuantityCart(quantityCart + 1);
+    setTotalCart(
+      totalCart > 0 ? (totalCart + movie.price).toFixed(2) : movie.price
+    );
+
     // else {
     //   const newCart = cart.map((item) => {
     //     if (item.id === product.id) {
@@ -24,8 +28,13 @@ const CartProvider = ({ children }) => {
     // }
   };
   const removeFromCart = (id) => {
-    const newCart = cart.filter((item) => item.id !== id);
+    const movie = cart.find((item) => item.movie_id === id);
+    const newCart = cart.filter((item) => item.movie_id !== id);
     setCart(newCart);
+    setQuantityCart(quantityCart - 1);
+    setTotalCart(
+      totalCart - movie.price > 0 ? (totalCart - movie.price).toFixed(2) : 0
+    );
   };
   const decreaseQuantity = (id) => {
     const newCart = cart.map((item) => {
@@ -38,6 +47,8 @@ const CartProvider = ({ children }) => {
   };
   const clearCart = () => {
     setCart([]);
+    setQuantityCart(0);
+    setTotalCart(0);
   };
   const isInCart = (id) => {
     return cart.some((item) => item.movie_id === id);
