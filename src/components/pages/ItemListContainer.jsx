@@ -7,16 +7,20 @@ import ItemList from "../ui/ItemList";
 
 export default function ItemListContainer() {
   const params = useParams();
-  const [nowPlaying, setNowPlaying] = useState([]);
-  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [moviesList, setMoviesList] = useState([]);
 
   useEffect(() => {
-    getMovies().then((movies) => {
-      setNowPlaying(movies);
-      if (params.category != undefined) {
-        setFilteredMovies(getMoviesByGenre(movies, params.category));
-      }
-    });
+    //Si no se selecciona una categoría, no se envía por url, así que se obtienen todas las películas
+    if (params.category === undefined) {
+      getMovies().then((movies) => {
+        setMoviesList(movies);
+      });
+    } else {
+      //Si se selecciona una categoría, se envía por url y se obtienen las películas de esa categoría
+      getMoviesByGenre(params.category).then((movies) => {
+        setMoviesList(movies);
+      });
+    }
   }, [params]);
 
   return (
@@ -29,9 +33,7 @@ export default function ItemListContainer() {
     >
       <>
         <h2 className="text-white font-bold text-lg ms-44 mb-1">Películas</h2>
-        <ItemList
-          movies={params.category != undefined ? filteredMovies : nowPlaying}
-        />
+        <ItemList movies={moviesList} />
       </>
     </div>
   );

@@ -8,6 +8,7 @@ const CartProvider = ({ children }) => {
   const [quantityCart, setQuantityCart] = useState(0);
   const [totalCart, setTotalCart] = useState(0);
 
+  //Función para agregar una película al carrito de compras
   const addToCart = (movie) => {
     let cartCopy = [...cart];
     cartCopy.push(movie);
@@ -27,6 +28,8 @@ const CartProvider = ({ children }) => {
     //   setCart(newCart);
     // }
   };
+
+  //Función para remover una película del carrito de compras
   const removeFromCart = (id) => {
     const movie = cart.find((item) => item.movie_id === id);
     const newCart = cart.filter((item) => item.movie_id !== id);
@@ -36,6 +39,8 @@ const CartProvider = ({ children }) => {
       totalCart - movie.price > 0 ? (totalCart - movie.price).toFixed(2) : 0
     );
   };
+
+  //Función para disminuir la cantidad de una película en el carrito de compras
   const decreaseQuantity = (id) => {
     const newCart = cart.map((item) => {
       if (item.id === id) {
@@ -45,15 +50,20 @@ const CartProvider = ({ children }) => {
     });
     setCart(newCart);
   };
+
+  //Función para vaciar el carrito de compras
   const clearCart = () => {
     setCart([]);
     setQuantityCart(0);
     setTotalCart(0);
   };
+
+  //Función para verificar si una película ya está en el carrito de compras
   const isInCart = (id) => {
     return cart.some((item) => item.movie_id === id);
   };
 
+  //Objeto con las funciones y atributos a compartir con los componentes
   const currentValue = {
     cart: cart,
     quantityCart: quantityCart,

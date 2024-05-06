@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { context } from "../context/CartProvider";
 import IMAGES_API from "../../config/Api";
+import { ConfirmSaleModal } from "../ui/ConfirmSaleModal";
 
 export const Checkout = () => {
   const contextValue = useContext(context);
@@ -50,9 +51,7 @@ export const Checkout = () => {
                   <p className="font-bold">Total:</p>
                   <p className="mb-3">${contextValue.totalCart}</p>
                 </div>
-                <button className="bg-lime-700 px-2 py-1 transition-all hover:brightness-125 rounded-lg text-right">
-                  Confirmar
-                </button>
+                <ConfirmSaleModal contextValue={contextValue} />
               </div>
             </div>
           </div>

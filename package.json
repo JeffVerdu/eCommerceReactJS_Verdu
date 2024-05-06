@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@nextui-org/card": "^2.0.26",
+    "@nextui-org/modal": "^2.0.33",
     "@nextui-org/navbar": "^2.0.28",
     "@nextui-org/react": "^2.3.0",
     "@radix-ui/react-slot": "^1.0.2",
@@ -27,6 +28,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
     "sass": "^1.75.0",
+    "sweetalert2": "^11.10.8",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7"
   },
