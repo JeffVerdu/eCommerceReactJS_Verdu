@@ -64,7 +64,9 @@ function NavbarApp() {
       </NavbarContent>
       <NavbarContent justify="end" className="hidden sm:flex">
         <NavbarItem>
-          <Cartwidget />
+          <NavLink to="/checkout">
+            <Cartwidget />
+          </NavLink>
         </NavbarItem>
       </NavbarContent>
     </Navbar>
