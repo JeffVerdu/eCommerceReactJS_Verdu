@@ -32,7 +32,6 @@ export const ConfirmSaleModal = ({ contextValue }) => {
       total: contextValue.totalCart,
     };
     createSale(sale);
-    contextValue.clearCart();
     onClose();
     Swal.fire({
       position: "center",
@@ -46,6 +45,7 @@ export const ConfirmSaleModal = ({ contextValue }) => {
     setTimeout(() => {
       navigate("/");
     }, 1500);
+    contextValue.clearCart();
   };
 
   return (

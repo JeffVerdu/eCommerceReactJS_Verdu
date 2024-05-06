@@ -14,9 +14,9 @@ const CartProvider = ({ children }) => {
     cartCopy.push(movie);
     setCart(cartCopy);
     setQuantityCart(quantityCart + 1);
-    setTotalCart(
-      totalCart > 0 ? (totalCart + movie.price).toFixed(2) : movie.price
-    );
+    let total = totalCart > 0 ? totalCart + movie.price : movie.price;
+    total.toFixed(2);
+    setTotalCart(total);
 
     // else {
     //   const newCart = cart.map((item) => {
@@ -35,9 +35,9 @@ const CartProvider = ({ children }) => {
     const newCart = cart.filter((item) => item.movie_id !== id);
     setCart(newCart);
     setQuantityCart(quantityCart - 1);
-    setTotalCart(
-      totalCart - movie.price > 0 ? (totalCart - movie.price).toFixed(2) : 0
-    );
+    let total = totalCart - movie.price > 0 ? totalCart - movie.price : 0;
+    total.toFixed(2);
+    setTotalCart(total);
   };
 
   //Función para disminuir la cantidad de una película en el carrito de compras

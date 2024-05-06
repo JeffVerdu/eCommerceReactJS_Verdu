@@ -1,12 +1,42 @@
-import React from "react";
-import MovieCard from "./MovieCard";
+import React, { useEffect, useState } from "react";
 
-function ItemList({ movies }) {
+import MovieCard from "./MovieCard";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+function ItemList({ movies, renderKey }) {
+  const [sliderKey, setSliderKey] = useState(0);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(false);
+    setTimeout(() => {
+      setVisible(true);
+    }, 300);
+    setSliderKey(renderKey);
+  }, [renderKey]);
+
+  const settings = {
+    key: sliderKey,
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 6,
+    slidesToScroll: 3,
+  };
+
   return (
-    <section className="flex gap-2 py-5 container-box h-400px overflow-x-scroll movie-list">
-      {movies.map((movie) => (
-        <MovieCard movie={movie} key={movie.movie_id} />
-      ))}
+    <section
+      className={`py-5 container-box h-[400px] m-auto slider-container ${
+        visible ? "opacity-100 transition-opacity duration-400" : "opacity-0"
+      }`}
+    >
+      <Slider {...settings}>
+        {movies.map((movie) => (
+          <MovieCard movie={movie} key={movie.id} />
+        ))}
+      </Slider>
     </section>
   );
 }

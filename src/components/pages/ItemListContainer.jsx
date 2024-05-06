@@ -8,6 +8,7 @@ import ItemList from "../ui/ItemList";
 export default function ItemListContainer() {
   const params = useParams();
   const [moviesList, setMoviesList] = useState([]);
+  const [sliderKey, setSliderKey] = useState(0);
 
   useEffect(() => {
     //Si no se selecciona una categoría, no se envía por url, así que se obtienen todas las películas
@@ -21,7 +22,9 @@ export default function ItemListContainer() {
         setMoviesList(movies);
       });
     }
-  }, [params]);
+
+    setSliderKey(sliderKey + 1);
+  }, [params.category]);
 
   return (
     <div
@@ -33,7 +36,7 @@ export default function ItemListContainer() {
     >
       <>
         <h2 className="text-white font-bold text-lg ms-44 mb-1">Películas</h2>
-        <ItemList movies={moviesList} />
+        <ItemList movies={moviesList} renderKey={sliderKey} />
       </>
     </div>
   );
