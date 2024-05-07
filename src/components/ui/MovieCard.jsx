@@ -24,17 +24,19 @@ function MovieCard({ movie }) {
   };
 
   return (
-    <div onMouseMove={handleDrag} onMouseDown={handleMouseDown}>
-      <Card className="border-none flex-shrink-0 bg-black">
-        <Link to={`/details/${movie.movie_id}`} onClick={handleClick}>
-          <Image
-            alt={movie.title}
-            src={IMAGES_API.IMAGE + movie.poster_path}
-            className="object-fill h-56 w-40 hover:scale-105 ease-in-out duration-300 transform"
-          />
-        </Link>
-      </Card>
-    </div>
+    <Card
+      className="border-none flex-shrink-0 bg-black"
+      onMouseMove={handleDrag}
+      onMouseDown={handleMouseDown}
+    >
+      <Link to={`/details/${movie.movie_id}`} onClick={handleClick}>
+        <Image
+          alt={movie.title}
+          src={IMAGES_API.IMAGE + movie.poster_path}
+          className="object-fill h-[15rem] w-[13rem] hover:scale-105 ease-in-out duration-300 transform"
+        />
+      </Link>
+    </Card>
   );
 }
 

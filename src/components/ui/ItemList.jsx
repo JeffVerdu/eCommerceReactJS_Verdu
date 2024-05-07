@@ -13,7 +13,7 @@ function ItemList({ movies, renderKey }) {
     setVisible(false);
     setTimeout(() => {
       setVisible(true);
-    }, 300);
+    }, 400);
     setSliderKey(renderKey);
   }, [renderKey]);
 
@@ -28,8 +28,8 @@ function ItemList({ movies, renderKey }) {
 
   return (
     <section
-      className={`py-5 container-box h-[400px] m-auto slider-container ${
-        visible ? "opacity-100 transition-opacity duration-400" : "opacity-0"
+      className={`py-5 container-box h-[400px] m-auto ${
+        visible ? "opacity-100 transition-opacity duration-1000" : "opacity-0"
       }`}
     >
       <Slider {...settings}>
