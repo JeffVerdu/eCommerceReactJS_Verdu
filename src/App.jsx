@@ -1,21 +1,21 @@
-import { BrowserRouter } from "react-router-dom";
-
+import { NextUIProvider } from "@nextui-org/react";
 import "./App.scss";
 
 import Header from "./components/layout/header/Header";
 import Main from "./components/layout/Main";
 import CartProvider from "./components/context/CartProvider";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
+
   return (
-    <>
-      <BrowserRouter>
-        <CartProvider>
-          <Header />
-          <Main />
-        </CartProvider>
-      </BrowserRouter>
-    </>
+    <NextUIProvider navigate={navigate}>
+      <CartProvider>
+        <Header />
+        <Main />
+      </CartProvider>
+    </NextUIProvider>
   );
 }
 

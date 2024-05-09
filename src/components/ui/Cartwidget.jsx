@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { context } from "../context/CartProvider";
-import { NavLink } from "react-router-dom";
 
 function Cartwidget() {
   const contextValue = useContext(context);

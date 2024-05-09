@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import {
   Navbar,
@@ -7,8 +7,18 @@ import {
   NavbarItem,
 } from "@nextui-org/react";
 import Cartwidget from "../../ui/Cartwidget";
+import DropdownButton from "../../ui/DropdownButton";
+import { getCategories } from "../../../utils/services";
 
 function NavbarApp() {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getCategories().then((categories) => {
+      setCategories(categories);
+    });
+  }, []);
+
   return (
     <Navbar className="navbar-app bg-black/50 text-white" shouldHideOnScroll>
       <NavbarBrand>
@@ -20,46 +30,7 @@ function NavbarApp() {
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-1" justify="center">
         <NavbarItem>
-          <NavLink
-            to="/category/35"
-            className={({ isActive }) =>
-              [
-                isActive
-                  ? "bg-white/20 rounded-lg py-1 px-2 text-white"
-                  : "text-white rounded-lg py-1 px-2 hover:bg-white/20 hover:border-white/50 hover:ease-in-out hover:duration-300",
-              ].join(" ")
-            }
-          >
-            Comedia
-          </NavLink>
-        </NavbarItem>
-        <NavbarItem>
-          <NavLink
-            to="/category/28"
-            className={({ isActive }) =>
-              [
-                isActive
-                  ? "bg-white/20 rounded-lg py-1 px-2 text-white"
-                  : "text-white rounded-lg py-1 px-2 hover:bg-white/20 hover:border-white/50 transform ease-in-out duration-300",
-              ].join(" ")
-            }
-          >
-            Acción
-          </NavLink>
-        </NavbarItem>
-        <NavbarItem>
-          <NavLink
-            to="/category/18"
-            className={({ isActive }) =>
-              [
-                isActive
-                  ? "bg-white/20 rounded-lg py-1 px-2 text-white"
-                  : "text-white rounded-lg py-1 px-2 hover:bg-white/20 hover:border-white/50 hover:ease-in-out hover:duration-300",
-              ].join(" ")
-            }
-          >
-            Drama
-          </NavLink>
+          <DropdownButton buttonName={"Categorías"} categories={categories} />
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end" className="hidden sm:flex">

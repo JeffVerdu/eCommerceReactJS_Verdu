@@ -28,13 +28,13 @@ function ItemList({ movies, renderKey }) {
 
   return (
     <section
-      className={`py-5 container-box h-[400px] m-auto ${
+      className={`py-5 h-[300px] m-auto text-center ${
         visible ? "opacity-100 transition-opacity duration-1000" : "opacity-0"
       }`}
     >
       <Slider {...settings}>
-        {movies.map((movie) => (
-          <MovieCard movie={movie} key={movie.id} />
+        {movies.map((movie, index) => (
+          <MovieCard movie={movie} key={index} />
         ))}
       </Slider>
     </section>

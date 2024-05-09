@@ -5,10 +5,11 @@ import {
   getFirestore,
   where,
   addDoc,
+  getDoc,
+  doc,
 } from "firebase/firestore";
 import { app } from "../firebase";
 
-//Función para obtener todas las películas
 export const getMovies = () => {
   const db = getFirestore(app);
   const moviesCollection = collection(db, "movies");
@@ -24,7 +25,6 @@ export const getMovies = () => {
     });
 };
 
-//Función para obtener las películas según género seleccionado
 export const getMoviesByGenre = (genre) => {
   const db = getFirestore(app);
   const movieCollection = collection(db, "movies");
@@ -44,7 +44,6 @@ export const getMoviesByGenre = (genre) => {
     });
 };
 
-//Función para obtener los detalles de una película seleccionada
 export const getItemDetail = (id) => {
   const db = getFirestore(app);
   const movieCollection = collection(db, "movies");
@@ -64,5 +63,30 @@ export const getItemDetail = (id) => {
 
 export const createSale = async (sale) => {
   const db = getFirestore(app);
-  await addDoc(collection(db, "sales"), sale);
+  const docRef = await addDoc(collection(db, "orders"), sale);
+  return docRef.id;
+};
+
+export const getOrder = async (id) => {
+  const db = getFirestore(app);
+  const orderDocRef = doc(db, "orders", id);
+
+  const docSnap = await getDoc(orderDocRef);
+
+  return docSnap.data();
+};
+
+export const getCategories = () => {
+  const db = getFirestore(app);
+  const categoriesCollection = collection(db, "categories");
+  const query = getDocs(categoriesCollection);
+
+  return query
+    .then((result) => {
+      const categories = result.docs.map((doc) => doc.data());
+      return categories;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };

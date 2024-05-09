@@ -16,11 +16,7 @@ function ItemDetailContainer() {
     });
   }, [idMovie]);
 
-  return (
-    <>
-      <ItemDetail movie={movieDetails} />
-    </>
-  );
+  return <ItemDetail movie={movieDetails} />;
 }
 
 export default ItemDetailContainer;

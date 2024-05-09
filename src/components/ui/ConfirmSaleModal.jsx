@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -8,30 +8,38 @@ import {
   Button,
   useDisclosure,
 } from "@nextui-org/react";
-import { createSale } from "../../utils/services";
+import { createSale, getOrder } from "../../utils/services";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export const ConfirmSaleModal = ({ contextValue }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [orderData, setOrderData] = useState({});
+  const [orderId, setOrderId] = useState("");
   const navigate = useNavigate();
+  let user, email, phone;
 
-  const handleConfirm = () => {
+  const handleConfirmCart = () => {
     onOpen();
   };
 
-  const handleConfirmSale = () => {
-    const sale = {
+  const handleConfirmSale = (e) => {
+    e.preventDefault();
+    const order = {
       items: contextValue.cart.map((movie) => {
         return {
           movie_id: movie.movie_id,
           title: movie.title,
           price: movie.price,
+          quantity: movie.quantity,
         };
       }),
       total: contextValue.totalCart,
+      user: user,
+      email: email,
+      phone: phone,
     };
-    createSale(sale);
+
     onClose();
     Swal.fire({
       position: "center",
@@ -39,19 +47,25 @@ export const ConfirmSaleModal = ({ contextValue }) => {
       title: "Compra realizada!",
       showConfirmButton: false,
       timer: 1500,
-      background: "rgb(0 0 0 / 0.7)",
+      background: "rgb(0 0 0 / 0.9)",
       color: "#ffffff",
     });
-    setTimeout(() => {
-      navigate("/");
-    }, 1500);
-    contextValue.clearCart();
+    createSale(order).then((response) => {
+      setOrderId(response);
+      getOrder(response).then((data) => {
+        setOrderData(data);
+        navigate("/confirmation", {
+          state: { order: data, orderId: response },
+        });
+        contextValue.clearCart();
+      });
+    });
   };
 
   return (
     <>
       <button
-        onClick={() => handleConfirm()}
+        onClick={() => handleConfirmCart()}
         className="bg-lime-700 px-2 py-1 transition-all hover:brightness-125 rounded-lg text-right"
       >
         Confirmar
@@ -74,19 +88,64 @@ export const ConfirmSaleModal = ({ contextValue }) => {
                 <h3>CONFIRMAR COMPRA</h3>
               </ModalHeader>
               <ModalBody>
-                <p>Por favor, confirme para finalizar su compra</p>
+                <h2 className="text-lg font-semibold">Datos personales</h2>
+                <form onSubmit={handleConfirmSale}>
+                  <div className="mb-3">
+                    <label htmlFor="name" className="block mb-1">
+                      Nombre
+                    </label>
+                    <input
+                      onChange={(e) => (user = e.target.value)}
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="Ingresa tu nombre"
+                      required
+                      className="p-2 rounded-xl bg-transparent border-1 border-white/50 inline-block w-full"
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="email" className="block mb-1">
+                      Correo
+                    </label>
+                    <input
+                      onChange={(e) => (email = e.target.value)}
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="Ingresa tu email"
+                      required
+                      className="p-2 rounded-xl bg-transparent border-1 border-white/50 inline-block w-full"
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="phone" className="block mb-1">
+                      Teléfono
+                    </label>
+                    <input
+                      onChange={(e) => (phone = e.target.value)}
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      placeholder="Ingresa tu teléfono"
+                      required
+                      className="p-2 rounded-xl bg-transparent border-1 border-white/50 inline-block w-full"
+                    />
+                  </div>
+                  <p className="text-lg font-semibold">
+                    Por favor, confirme para finalizar su compra
+                  </p>
+                  <div className="flex gap-1 justify-end mt-5">
+                    <Button color="danger" variant="light" onPress={onClose}>
+                      Cancelar
+                    </Button>
+                    <Button className="text-white bg-lime-700" type="submit">
+                      Confirmar
+                    </Button>
+                  </div>
+                </form>
               </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Cancelar
-                </Button>
-                <Button
-                  className="text-white bg-lime-700"
-                  onPress={() => handleConfirmSale()}
-                >
-                  Confirmar
-                </Button>
-              </ModalFooter>
+              <ModalFooter></ModalFooter>
             </>
           )}
         </ModalContent>

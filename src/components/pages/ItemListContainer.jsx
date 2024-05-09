@@ -1,23 +1,23 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useMatch, useParams } from "react-router-dom";
 import { getMovies, getMoviesByGenre } from "../../utils/services";
 
 import ItemList from "../ui/ItemList";
+import { BackHome } from "../ui/BackHome";
 
 export default function ItemListContainer() {
   const params = useParams();
   const [moviesList, setMoviesList] = useState([]);
   const [sliderKey, setSliderKey] = useState(0);
+  const isCategoryPage = useMatch("/category/:category");
 
   useEffect(() => {
-    //Si no se selecciona una categoría, no se envía por url, así que se obtienen todas las películas
     if (params.category === undefined) {
       getMovies().then((movies) => {
         setMoviesList(movies);
       });
     } else {
-      //Si se selecciona una categoría, se envía por url y se obtienen las películas de esa categoría
       getMoviesByGenre(params.category).then((movies) => {
         setMoviesList(movies);
       });
@@ -34,10 +34,11 @@ export default function ItemListContainer() {
           : "bg-black h-auto pb-10"
       }`}
     >
-      <>
-        <h2 className="text-white font-bold text-lg ms-44 mb-1">Películas</h2>
+      <div className="container-box">
+        <h2 className="text-white font-bold text-lg ms-10 mb-1">Películas</h2>
         <ItemList movies={moviesList} renderKey={sliderKey} />
-      </>
+        <div className="text-center">{isCategoryPage && <BackHome />}</div>
+      </div>
     </div>
   );
 }
