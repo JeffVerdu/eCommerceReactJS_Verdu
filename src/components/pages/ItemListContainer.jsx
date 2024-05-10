@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useMatch, useParams } from "react-router-dom";
-import { getMovies, getMoviesByGenre } from "../../utils/services";
+import { getMovies, getMoviesByCategory } from "../../utils/services";
 
 import ItemList from "../ui/ItemList";
 import { BackHome } from "../ui/BackHome";
@@ -18,7 +18,7 @@ export default function ItemListContainer() {
         setMoviesList(movies);
       });
     } else {
-      getMoviesByGenre(params.category).then((movies) => {
+      getMoviesByCategory(params.category).then((movies) => {
         setMoviesList(movies);
       });
     }

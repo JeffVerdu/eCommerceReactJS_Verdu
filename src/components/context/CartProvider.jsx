@@ -11,9 +11,15 @@ const CartProvider = ({ children }) => {
   useEffect(() => {
     const cart = localStorage.getItem("cart");
     if (cart) {
-      setCart(JSON.parse(cart));
+      const parsedCart = JSON.parse(cart);
+      setCart(parsedCart);
       setQuantityCart(JSON.parse(cart).length);
-      setTotalCart(JSON.parse(totalCart));
+
+      const total = parsedCart.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+      );
+      setTotalCart(total);
     }
   }, []);
 
@@ -39,7 +45,8 @@ const CartProvider = ({ children }) => {
       localStorage.setItem("cart", JSON.stringify(newCart));
     }
 
-    setQuantityCart(quantityCart + 1);
+    setQuantityCart(quantityCart + quantity);
+    localStorage.setItem("quantityCart", JSON.stringify(quantityCart));
 
     const movieTotal = movie.price * quantity;
 
@@ -54,13 +61,15 @@ const CartProvider = ({ children }) => {
     const movie = cart.find((item) => item.movie_id === id);
     const newCart = cart.filter((item) => item.movie_id !== id);
     setCart(newCart);
-    setQuantityCart(quantityCart - 1);
+    const quantity = newCart[0].quantity;
+    setQuantityCart(quantityCart - quantity);
     let total = totalCart - movie.price > 0 ? totalCart - movie.price : 0;
     total = total.toFixed(2);
     setTotalCart(total);
 
     localStorage.setItem("cart", JSON.stringify(newCart));
     localStorage.setItem("totalCart", JSON.stringify(total));
+    localStorage.setItem("quantityCart", JSON.stringify(quantityCart));
   };
 
   const clearCart = () => {
@@ -70,6 +79,7 @@ const CartProvider = ({ children }) => {
 
     localStorage.removeItem("cart");
     localStorage.removeItem("totalCart");
+    localStorage.removeItem("quantityCart");
   };
 
   const isInCart = (id) => {

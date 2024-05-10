@@ -6,10 +6,8 @@ import {
   DropdownItem,
   Button,
 } from "@nextui-org/react";
-import { useNavigate } from "react-router-dom";
 
 export default function DropdownButton({ buttonName, categories }) {
-  const navigate = useNavigate();
   return (
     <Dropdown backdrop="blur" className="bg-black/50">
       <DropdownTrigger>
@@ -31,7 +29,7 @@ export default function DropdownButton({ buttonName, categories }) {
           <DropdownItem
             key={index}
             textValue={category.name}
-            href={`/category/${category.category_id}`}
+            href={`/category/${category.key}`}
           >
             {category.name}
           </DropdownItem>

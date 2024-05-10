@@ -25,32 +25,38 @@ export const getMovies = () => {
     });
 };
 
-export const getMoviesByGenre = (genre) => {
-  const db = getFirestore(app);
-  const movieCollection = collection(db, "movies");
-  const filter = query(
-    movieCollection,
-    where("genres_ids", "array-contains", parseInt(genre))
-  );
-  const queryResult = getDocs(filter);
+export const getMoviesByCategory = async (genreKey) => {
+  try {
+    const db = getFirestore();
+    const categoryQuery = query(
+      collection(db, "categories"),
+      where("key", "==", genreKey)
+    );
+    const categorySnapshot = await getDocs(categoryQuery);
+    const categoryDoc = categorySnapshot.docs[0].data();
+    const categoryId = categoryDoc.category_id;
 
-  return queryResult
-    .then((result) => {
-      const movies = result.docs.map((doc) => doc.data());
-      return movies;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    const moviesQuery = query(
+      collection(db, "movies"),
+      where("genres_ids", "array-contains", categoryId)
+    );
+    const moviesSnapshot = await getDocs(moviesQuery);
+
+    const movies = moviesSnapshot.docs.map((doc) => doc.data());
+    return movies;
+  } catch (error) {
+    console.error("Error al obtener películas por género:", error);
+    throw error;
+  }
 };
 
 export const getItemDetail = (id) => {
   const db = getFirestore(app);
   const movieCollection = collection(db, "movies");
   const filter = query(movieCollection, where("movie_id", "==", parseInt(id)));
-  const queryResult = getDocs(filter);
+  const moviesQuery = getDocs(filter);
 
-  return queryResult
+  return moviesQuery
     .then((result) => {
       const doc = result.docs[0];
       const movie = doc.data();

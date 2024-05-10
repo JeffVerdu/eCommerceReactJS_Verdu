@@ -1,70 +1,72 @@
-import React, { useContext } from "react";
-import { context } from "../context/CartProvider";
-import IMAGES_API from "../../config/Api";
-import { ConfirmSaleModal } from "../ui/ConfirmSaleModal";
-import { BackHome } from "../ui/BackHome";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export const Checkout = () => {
-  const contextValue = useContext(context);
+  const location = useLocation();
+
+  const [order, setOrder] = useState({});
+  const [orderId, setOrderId] = useState("");
+
+  useEffect(() => {
+    if (location.state && location.state.order !== undefined) {
+      setOrder(location.state.order);
+    }
+
+    if (location.state && location.state.orderId !== undefined) {
+      setOrderId(location.state.orderId);
+    }
+  }, [location]);
 
   return (
-    <div className="page-background min-h-dvh">
-      {contextValue.cart.length !== 0 ? (
-        <div className="text-white pb-10">
-          <h2 className="text-center mb-5 font-bold text-2xl">
-            Confirmar compra
-          </h2>
-
-          {contextValue.cart.map((movie, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-3 items-center container-box pb-5"
-            >
-              <div className="mb-4">
-                <p className="text-center mb-2">{movie.title}</p>
-                <img
-                  src={IMAGES_API.IMAGE + movie.poster_path}
-                  alt={movie.title}
-                  className="w-auto h-40 object-fill my-0 mx-auto rounded-lg shadow-black shadow-2xl"
-                />
-              </div>
-              <div className="col-start-2 col-end-4 text-right">
-                <p>Cantidad: {movie.quantity}</p>
-                <p className="mb-2">Precio: ${movie.price * movie.quantity}</p>
-                <button
-                  onClick={() => contextValue.removeFromCart(movie.movie_id)}
-                  className="bg-rose-700 px-2 py-1 hover:brightness-75 transition-all rounded-lg"
-                >
-                  Eliminar
-                </button>
-              </div>
-            </div>
-          ))}
-
-          <div className="container-box border-t-1 pt-3 grid grid-cols-3 items-center">
-            <div className="text-center">
-              <button
-                onClick={() => contextValue.clearCart()}
-                className="bg-rose-700 px-2 py-1 hover:brightness-75 transition-all rounded-lg"
-              >
-                Vaciar carrito
-              </button>
-            </div>
-            <div className="col-start-3 col-end-4 text-right">
-              <div className="flex gap-2 justify-end">
-                <p className="font-bold">Total:</p>
-                <p className="mb-3">${contextValue.totalCart}</p>
-              </div>
-              <ConfirmSaleModal contextValue={contextValue} />
-            </div>
+    <div className="page-background min-h-dvh text-white">
+      <h2 className="text-2xl text-center font-bold mb-5">
+        {orderId !== "" ? "Orden de compra" : "No hay orden de compra"}
+      </h2>
+      {orderId !== "" && (
+        <div className="text-left container-box text-black bg-white rounded-2xl p-5">
+          <p className="text-lg font-semibold">
+            Nro de confirmación:{" "}
+            <span className="font-normal text-base">{orderId}</span>
+          </p>
+          <p className="text-lg font-semibold">
+            Estado de orden:{" "}
+            <span className="font-normal text-base">{order.state}</span>
+          </p>
+          <p className="text-lg font-semibold">
+            Fecha de orden:{" "}
+            <span className="font-normal text-base">{order.date}</span>
+          </p>
+          <p className="text-lg font-semibold">
+            Cliente: <span className="font-normal text-base">{order.user}</span>
+          </p>
+          <p className="text-lg font-semibold">
+            Correo: <span className="font-normal text-base">{order.email}</span>
+          </p>
+          <p className="text-lg font-semibold">
+            Teléfono:{" "}
+            <span className="font-normal text-base">{order.phone}</span>
+          </p>
+          <div className="mt-5 mb-5 pt-5 border-t-1 border-black border-dashed">
+            <p className="font-semibold text-lg mb-2">Detalle de compra</p>
+            {order.items &&
+              order.items.map((item, index) => (
+                <div className="mb-2">
+                  <p className="block pl-4">Item {index + 1}</p>
+                  <div
+                    key={index}
+                    className="text-black font-light text-base flex gap-5 pl-8"
+                  >
+                    <p>Película: {item.title}</p>
+                    <p>Precio: ${item.price}</p>
+                    <p>Cantidad: {item.quantity}</p>
+                  </div>
+                </div>
+              ))}
           </div>
-        </div>
-      ) : (
-        <div className="mt-5 text-center">
-          <h2 className="text-center font-bold text-xl text-white">
-            No hay productos en el carrito de compras
-          </h2>
-          <BackHome />
+          <p className="text-lg font-semibold">
+            Total de la compra:
+            <span className="font-normal text-base"> ${order.total}</span>
+          </p>
         </div>
       )}
     </div>

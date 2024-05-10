@@ -12,11 +12,10 @@ import { createSale, getOrder } from "../../utils/services";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-export const ConfirmSaleModal = ({ contextValue }) => {
+export const ConfirmSale = ({ contextValue }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [orderData, setOrderData] = useState({});
-  const [orderId, setOrderId] = useState("");
   const navigate = useNavigate();
+  const [purchaseDate, setPurchaseDate] = useState("");
   let user, email, phone;
 
   const handleConfirmCart = () => {
@@ -25,6 +24,11 @@ export const ConfirmSaleModal = ({ contextValue }) => {
 
   const handleConfirmSale = (e) => {
     e.preventDefault();
+
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().split("T")[0];
+    setPurchaseDate(formattedDate);
+
     const order = {
       items: contextValue.cart.map((movie) => {
         return {
@@ -38,9 +42,12 @@ export const ConfirmSaleModal = ({ contextValue }) => {
       user: user,
       email: email,
       phone: phone,
+      date: purchaseDate,
+      state: "Generada",
     };
 
     onClose();
+
     Swal.fire({
       position: "center",
       icon: "success",
@@ -50,11 +57,10 @@ export const ConfirmSaleModal = ({ contextValue }) => {
       background: "rgb(0 0 0 / 0.9)",
       color: "#ffffff",
     });
+
     createSale(order).then((response) => {
-      setOrderId(response);
       getOrder(response).then((data) => {
-        setOrderData(data);
-        navigate("/confirmation", {
+        navigate("/checkout", {
           state: { order: data, orderId: response },
         });
         contextValue.clearCart();
