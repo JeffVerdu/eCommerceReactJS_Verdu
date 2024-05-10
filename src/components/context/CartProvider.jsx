@@ -63,7 +63,7 @@ const CartProvider = ({ children }) => {
     const movie = cart.find((item) => item.movie_id === id);
     const newCart = cart.filter((item) => item.movie_id !== id);
     setCart(newCart);
-    const quantity = newCart[0].quantity;
+    const quantity = movie.quantity;
     setQuantityCart(quantityCart - quantity);
     let movieTotal = movie.price * quantity;
     let total = totalCart - movie.price > 0 ? totalCart - movieTotal : 0;
