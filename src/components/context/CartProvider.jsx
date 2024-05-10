@@ -65,7 +65,8 @@ const CartProvider = ({ children }) => {
     setCart(newCart);
     const quantity = newCart[0].quantity;
     setQuantityCart(quantityCart - quantity);
-    let total = totalCart - movie.price > 0 ? totalCart - movie.price : 0;
+    let movieTotal = movie.price * quantity;
+    let total = totalCart - movie.price > 0 ? totalCart - movieTotal : 0;
     total = total.toFixed(2);
     setTotalCart(total);
 
