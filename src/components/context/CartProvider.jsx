@@ -13,7 +13,9 @@ const CartProvider = ({ children }) => {
     if (cart) {
       const parsedCart = JSON.parse(cart);
       setCart(parsedCart);
-      setQuantityCart(JSON.parse(cart).length);
+
+      const quantity = parsedCart.reduce((acc, item) => acc + item.quantity, 0);
+      setQuantityCart(quantity);
 
       const total = parsedCart.reduce(
         (acc, item) => acc + item.price * item.quantity,
