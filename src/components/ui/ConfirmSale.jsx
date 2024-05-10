@@ -15,8 +15,7 @@ import Swal from "sweetalert2";
 export const ConfirmSale = ({ contextValue }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
-  const [purchaseDate, setPurchaseDate] = useState("");
-  let user, email, phone;
+  let user, email, phone, date;
 
   const handleConfirmCart = () => {
     onOpen();
@@ -27,7 +26,7 @@ export const ConfirmSale = ({ contextValue }) => {
 
     const currentDate = new Date();
     const formattedDate = currentDate.toISOString().split("T")[0];
-    setPurchaseDate(formattedDate);
+    date = formattedDate.split("-").reverse().join("/");
 
     const order = {
       items: contextValue.cart.map((movie) => {
@@ -42,7 +41,7 @@ export const ConfirmSale = ({ contextValue }) => {
       user: user,
       email: email,
       phone: phone,
-      date: purchaseDate,
+      date: date,
       state: "Generada",
     };
 
@@ -60,6 +59,7 @@ export const ConfirmSale = ({ contextValue }) => {
 
     createSale(order).then((response) => {
       getOrder(response).then((data) => {
+        console.log(data);
         navigate("/checkout", {
           state: { order: data, orderId: response },
         });
