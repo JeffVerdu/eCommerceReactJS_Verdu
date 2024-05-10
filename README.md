@@ -1,31 +1,45 @@
-# Curso de React - Repositorio de entregas
-Este repositorio está destinado a almacenar todas las actividades realizadas durante el curso de React ofrecido por Coderhouse. A lo largo del curso, aprenderemos los fundamentos de React, así como técnicas avanzadas para construir aplicaciones web modernas y dinámicas.
+# Proyecto de eCommerce de Películas con ReactJS
 
-## Descripción del Curso
-El curso de React de Coderhouse está diseñado para proporcionar a los desarrolladores una comprensión sólida de esta biblioteca de JavaScript para construir interfaces de usuario. Desde los conceptos básicos hasta las técnicas avanzadas, cubriremos:
+En este proyecto se desarrolló un eCommerce con la herramienta Vite, utilizando la librería ReactJS para la creación de todo el Frontend y una base de datos de Firebase para obtener las películas y todas su información a mostrar en la aplicación. Además se utiliza el local storage para almacenar el carrito de compras en caso de recargar la página web.
 
-- Componentes y props
-- Estado y ciclo de vida
-- Manejo de eventos
-- Hooks
-- Routing
-- Integración con API
-- Pruebas unitarias
-- y mucho más.
+## Páginas
 
-#
+La aplicación tiene 6 páginas, de las cuales el usuario tiene acceso a navegar mediante un enlace a 5 de ellas excepto la página de Checkout, a la cual se accede unicamente cuando se confirma una compra. Las páginas son las siguientes:
 
-# React Course - Activities Repository
-This repository is intended to store all the activities completed during the React course offered by Coderhouse. Throughout the course, we will learn the fundamentals of React as well as advanced techniques for building modern and dynamic web applications.
+- Inicio: se muestra la lista de todas las películas
+- Drama: se muestran las películas con la categoría de drama asociada
+- Comedia: se muestra la lista de películas con la categoría de comedia asociada
+- Acción: se muestran las películas de la categoría de acción
+- Carrito de compras: muestra las películas agregadas al carrito de compras
+- Checkout: muestra los detalles de la orden de compra
 
-## Course Description
-The Coderhouse React course is designed to provide developers with a solid understanding of this JavaScript library for building user interfaces. From basics to advanced techniques, we will cover:
+## Funciones
 
-- Components and props
-- State and lifecycle
-- Event handling
-- Hooks
-- Routing
-- API integration
-- Unit testing
-- and much more.
+La aplicación posee las siguientes funcionalidades:
+
+- Filtrar por categoría de películas
+- Seleccionar una película para ver su información detallada
+- Agregar películas al carrito
+- Elegir la cantidad de películas a agregar en el carrito
+- Eliminar un item del carrito de compras
+- Vaciar el carrito de compras
+- Confirmar los items del carrito de compras
+- Ingresar los datos del cliente
+- Confirmar la compra
+- Generación de orden de compra con número de confirmación único, fecha de compra, estado de la orden, datos ingresados por el cliente, detalle de las películas compradas y total de la compra.
+
+## Librerías
+
+Se utilizaron las siguientes librerías:
+
+- NextUI: Librería de componentes que se usó para el navbar, el dropdown menu de las categorías, las tarjetas de las películas y el modal que muestra el formulario del cliente que compra
+  [Documentación de NextUI](https://nextui.org/docs/guide/introduction)
+
+- Lucide-React: Librerías de íconos
+  [Documentación de Lucide React](https://lucide.dev/guide/)
+
+- React Slick: Componente de carrusel para mostrar el listado de películas
+  [Documentación de React Slick](https://react-slick.neostack.com/docs/get-started)
+
+- Sweet Alert: Librería para mostrar una alerta cuando se agrega una película al carrito y cuando se confirma la compra
+  [Documentación de Sweet Alert](https://sweetalert2.github.io/#download)
