@@ -38,8 +38,8 @@ Se utilizaron las siguientes librerías:
 - Lucide-React: Librería de íconos.
   [Documentación de Lucide React](https://lucide.dev/guide/)
 
-- React Slick: Componente de carrusel para mostrar el listado de películas.
+- React Slick: Componente de carrusel para mostrar el listado "infinito" de películas.
   [Documentación de React Slick](https://react-slick.neostack.com/docs/get-started)
 
 - Sweet Alert: Librería para mostrar una alerta cuando se agrega una película al carrito y cuando se confirma la compra.
-  [Documentación de Sweet Alert](https://sweetalert2.github.io/#download)
+  [Documentación de Sweet Alert](https://sweetalert2.github.io/#examples)
