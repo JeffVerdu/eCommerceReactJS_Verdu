@@ -52,9 +52,9 @@ const CartProvider = ({ children }) => {
 
     const movieTotal = movie.price * quantity;
 
-    const total = totalCart > 0 ? totalCart + movieTotal : movieTotal;
+    let total = totalCart > 0 ? totalCart + movieTotal : movieTotal;
 
-    setTotalCart(total);
+    setTotalCart((total = parseFloat(total.toFixed(2))));
 
     localStorage.setItem("totalCart", JSON.stringify(total));
   };
@@ -67,7 +67,7 @@ const CartProvider = ({ children }) => {
     setQuantityCart(quantityCart - quantity);
     let movieTotal = movie.price * quantity;
     let total = totalCart - movie.price > 0 ? totalCart - movieTotal : 0;
-    total = total.toFixed(2);
+    total = parseFloat(total.toFixed(2));
     setTotalCart(total);
 
     localStorage.setItem("cart", JSON.stringify(newCart));
