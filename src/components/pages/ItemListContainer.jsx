@@ -1,7 +1,11 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useMatch, useParams } from "react-router-dom";
-import { getMovies, getMoviesByCategory } from "../../utils/services";
+import {
+  getCategories,
+  getMovies,
+  getMoviesByCategory,
+} from "../../utils/services";
 
 import ItemList from "../ui/ItemList";
 import { BackHome } from "../ui/BackHome";
@@ -11,6 +15,7 @@ export default function ItemListContainer() {
   const [moviesList, setMoviesList] = useState([]);
   const [sliderKey, setSliderKey] = useState(0);
   const isCategoryPage = useMatch("/category/:category");
+  const [category, setCategory] = useState([]);
 
   useEffect(() => {
     if (params.category === undefined) {
@@ -20,6 +25,12 @@ export default function ItemListContainer() {
     } else {
       getMoviesByCategory(params.category).then((movies) => {
         setMoviesList(movies);
+      });
+      getCategories().then((categories) => {
+        const categoryName = categories.find(
+          (category) => category.key === params.category
+        );
+        setCategory(categoryName.name);
       });
     }
 
@@ -35,7 +46,9 @@ export default function ItemListContainer() {
       }`}
     >
       <div className="container-box">
-        <h2 className="text-white font-bold text-lg ms-10 mb-1">Películas</h2>
+        <h2 className="text-white font-bold text-lg ms-10 mb-1">
+          {isCategoryPage ? category : "Películas en cartelera"}
+        </h2>
         <ItemList movies={moviesList} renderKey={sliderKey} />
         <div className="text-center">{isCategoryPage && <BackHome />}</div>
       </div>
