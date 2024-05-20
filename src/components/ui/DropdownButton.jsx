@@ -27,7 +27,7 @@ export default function DropdownButton() {
         <Button
           color="default"
           variant="light"
-          className="capitalize text-white text-lg font-light flex flex-col items-center gap-1 md:block"
+          className="capitalize text-white text-lg font-light flex flex-col items-center gap-0"
         >
           <p
             className={`w-5 md:w-full text-tiny text-center rounded-full cart-number md:hidden ${
@@ -57,7 +57,11 @@ export default function DropdownButton() {
             {category.name}
           </DropdownItem>
         ))}
-        <DropdownItem textValue="Carrito de compras" href="/cart">
+        <DropdownItem
+          textValue="Carrito de compras"
+          href="/cart"
+          className="md:hidden"
+        >
           <Cartwidget />
         </DropdownItem>
       </DropdownMenu>
