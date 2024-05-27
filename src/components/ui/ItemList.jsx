@@ -4,16 +4,17 @@ import MovieCard from "./MovieCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Skeleton } from "@nextui-org/react";
 
 function ItemList({ movies, renderKey }) {
   const [sliderKey, setSliderKey] = useState(0);
-  const [visible, setVisible] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setVisible(false);
+    setIsLoaded(false);
     setTimeout(() => {
-      setVisible(true);
-    }, 400);
+      setIsLoaded(true);
+    }, 1000);
     setSliderKey(renderKey);
   }, [renderKey]);
 
@@ -50,14 +51,16 @@ function ItemList({ movies, renderKey }) {
   };
 
   return (
-    <section
-      className={`py-5 h-[300px] m-auto text-center ${
-        visible ? "opacity-100 transition-opacity duration-1000" : "opacity-0"
-      }`}
-    >
+    <section className={`py-5 h-[300px] m-auto text-center`}>
       <Slider {...settings}>
         {movies.map((movie, index) => (
-          <MovieCard movie={movie} key={index} />
+          <Skeleton
+            key={index}
+            isLoaded={isLoaded}
+            className={`rounded-xl bg-zinc-400 `}
+          >
+            <MovieCard movie={movie} key={index} />
+          </Skeleton>
         ))}
       </Slider>
     </section>

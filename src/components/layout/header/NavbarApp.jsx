@@ -20,6 +20,11 @@ function NavbarApp() {
         </Link>
       </NavbarBrand>
       <NavbarContent className="flex gap-1" justify="center">
+        <NavbarItem className="md:hidden">
+          <NavLink to="/cart">
+            <Cartwidget />
+          </NavLink>
+        </NavbarItem>
         <NavbarItem>
           <DropdownButton />
         </NavbarItem>

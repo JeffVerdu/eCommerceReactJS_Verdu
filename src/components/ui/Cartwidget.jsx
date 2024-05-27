@@ -5,7 +5,11 @@ function Cartwidget() {
   const contextValue = useContext(context);
 
   return (
-    <div className="flex flex-col items-center">
+    <div
+      className={`flex flex-col hover:bg-white/40 rounded-xl px-5 items-center ${
+        contextValue.quantityCart > 0 ? "py-1" : "py-2"
+      }`}
+    >
       <p
         className={`w-5 md:w-full text-xs text-center rounded-full cart-number ${
           contextValue.quantityCart > 0

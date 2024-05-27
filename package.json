@@ -16,6 +16,7 @@
     "@nextui-org/modal": "^2.0.33",
     "@nextui-org/navbar": "^2.0.28",
     "@nextui-org/react": "^2.3.0",
+    "@nextui-org/skeleton": "^2.0.27",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

@@ -8,9 +8,7 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      colors: {},
-    },
+    extend: {},
   },
   darkMode: "class",
   plugins: ["@tailwindcss/aspect-ratio", nextui()],
